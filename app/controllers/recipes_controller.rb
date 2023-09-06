@@ -38,7 +38,12 @@ class RecipesController < ApplicationController
    end
   end
 
+  private
   def recipe_params
-    params.permit(:title,:description,:ingredients,:user_id)
+    params.permit(:title,:description,:ingredients)
+  end
+
+  def authenticate_user
+
   end
 end
