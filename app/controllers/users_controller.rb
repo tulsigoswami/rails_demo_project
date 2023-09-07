@@ -1,7 +1,6 @@
 class UsersController < ApplicationController
   before_action :authorize_admin, only: [:index]
   before_action :authorize_request,except: [:index, :create]
-  # before_action :find_user, except: [:create, :index]
 
   def index
     @user = User.where(type:'User')
@@ -49,6 +48,7 @@ class UsersController < ApplicationController
    render json:@followers
   end
 
+  private
   def user_params
     params.permit(:name,:email,:password)
   end
