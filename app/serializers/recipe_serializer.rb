@@ -1,5 +1,6 @@
 class RecipeSerializer < ActiveModel::Serializer
   attributes :title,:description ,:ingredients,:likes, :comments
+  belongs_to :user
   has_many :likes
   has_many :comments
 
@@ -10,4 +11,5 @@ class RecipeSerializer < ActiveModel::Serializer
   def comments
     @object.comments.pluck(:user_id,:text)
   end
+
 end

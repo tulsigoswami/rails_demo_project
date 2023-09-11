@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+  self.inheritance_column = :type
   has_secure_password
   has_one_attached :profile_image
   has_many :recipes
