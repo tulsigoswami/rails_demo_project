@@ -8,11 +8,16 @@ class UsersController < ApplicationController
   end
 
   def create
+    # byebug
     @user = User.new(user_params)
-    if @user.save
-       render plain: 'Registration successful'
+    if @user.invalid?
+       render plain:"PLease input the correct information "
     else
-       render json: {a:'Already registered!you need to login now'}
+      if @user.save
+         render plain: 'Registration successful'
+      else
+         render json: {message:'Already registered!you need to login now'}
+      end
     end
   end
 
@@ -24,8 +29,8 @@ class UsersController < ApplicationController
   def follow
     @user = User.find(params[:id])
     if @user
-     @current_user.followees << @user
-     render json:@user
+      @current_user.followees << @user
+      render json:@user
     end
   end
 
@@ -33,8 +38,8 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @followee = @current_user.followed_users.find_by(followee_id: @user.id)
     if @followee
-      @followee.destroy
-      render json:@user
+       @followee.destroy
+       render json:@user
     end
   end
 
@@ -44,13 +49,13 @@ class UsersController < ApplicationController
   end
 
   def all_followers
-   @followers = @current_user.followers
-   render json:@followers
+    @followers = @current_user.followers
+    render json:@followers
   end
 
   private
   def user_params
-    params.permit(:name,:email,:password)
+    params.permit(:first_name,:last_name,:email,:password)
   end
 
 end

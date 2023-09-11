@@ -1,5 +1,4 @@
 class UserSerializer < ActiveModel::Serializer
-  attributes :name
-  # has_one_attached :profile_image
+  attributes :first_name, :last_name
   has_many :recipes
 end

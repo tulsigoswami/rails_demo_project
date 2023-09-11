@@ -11,12 +11,12 @@ Rails.application.routes.draw do
       get :all_followers
     end
   end
-  post 'user/login', to: 'authentication#login'
-  post '/users/:id/follow', to: "users#follow", as: "follow_user"
-  post '/users/:id/unfollow', to: "users#unfollow", as: "unfollow_user"
+   post 'user/login', to: 'authentication#login'
+   post '/users/:id/follow', to: "users#follow", as: "follow_user"
+   post '/users/:id/unfollow', to: "users#unfollow", as: "unfollow_user"
 
-  post 'likes/create/:id', to:'likes#create'
-  delete 'likes/dislike/:id', to:'likes#dislike'
+   post 'likes/create/:id', to:'likes#create'
+   delete 'likes/dislike/:id', to:'likes#dislike'
 
    post 'comments/create/:id', to:'comments#create'
    put  'comments/update/:id/:comment_id', to:'comments#update'

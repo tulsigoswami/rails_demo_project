@@ -14,19 +14,19 @@ class LikesController < ApplicationController
   end
 
   def dislike
-     if !already_liked?
-       render plain:"You can't unlike"
-     else
-       @like = Like.where(user_id:@current_user.id, recipe_id:
-       params[:id]).first
-       @like.destroy()
-       render plain:"disliked recipe"
+    if !already_liked?
+      render plain:"You can't unlike"
+    else
+      @like = Like.where(user_id:@current_user.id, recipe_id:
+      params[:id]).first
+      @like.destroy()
+      render plain:"disliked recipe"
      end
   end
 
   private
   def already_liked?
-     Like.where(user_id:@current_user.id, recipe_id:
-     params[:id]).exists?
+      Like.where(user_id:@current_user.id, recipe_id:
+      params[:id]).exists?
   end
 end

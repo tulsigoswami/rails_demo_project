@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::API
   rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
   before_action :find_recipe, only: :authorize_user
+
   def record_not_found
     render plain: "Record Not Found", status: 404
   end
