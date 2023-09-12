@@ -8,8 +8,10 @@ class RecipesController < ApplicationController
   end
 
   def create
-    @recipe = Recipe.create(recipe_params)
+    @recipe = Recipe.new(recipe_params)
+    # byebug
     if @recipe.save
+     @recipe.content.attach(params[:content])
      render json: @recipe
     else
      render json: @recipe.errors.full_messages
@@ -40,7 +42,7 @@ class RecipesController < ApplicationController
 
   private
   def recipe_params
-    params.permit(:title,:description,:ingredients)
+    params.permit(:user_id,:title,:description,:ingredients,:content)
   end
 
   def authenticate_user

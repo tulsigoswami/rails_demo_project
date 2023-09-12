@@ -14,6 +14,7 @@ class AuthenticationController < ApplicationController
     end
   end
 
+
   private
 
   def login_params

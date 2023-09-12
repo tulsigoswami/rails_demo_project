@@ -4,17 +4,20 @@ class UsersController < ApplicationController
 
   def index
     @user = User.where(type:'User')
-    render json:@user
+    render json: @user#, plain: "#{url_for(:profile_image)}"
   end
 
   def create
     # byebug
     @user = User.new(user_params)
     if @user.invalid?
-       render plain:"PLease input the correct information "
+       render plain:"Please input the correct information "
     else
       if @user.save
-         render plain: 'Registration successful'
+         @user.profile_image.attach(params[:profile_image])
+
+         UserMailer.with(user:@user).welcome_email.deliver_later
+         render json:@user, plain: 'Registration successful'
       else
          render json: {message:'Already registered!you need to login now'}
       end
@@ -55,7 +58,7 @@ class UsersController < ApplicationController
 
   private
   def user_params
-    params.permit(:first_name,:last_name,:email,:password)
+    params.permit(:first_name,:last_name,:email,:password,:profile_image)
   end
 
 end

@@ -1,3 +1,4 @@
+include Rails.application.routes.url_helpers
 class User < ApplicationRecord
   self.inheritance_column = :type
   has_secure_password
@@ -18,4 +19,7 @@ class User < ApplicationRecord
 
   validates :password,  confirmation: true,length: {within: 8..20}, on: :create
 
+  def get_url
+    url_for(:profile_image)
+  end
 end
