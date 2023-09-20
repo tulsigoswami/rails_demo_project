@@ -1,10 +1,9 @@
 class UserMailer < ApplicationMailer
-  default to:->{User.pluck(:email)},
-  from: 'tulsig@shriffle.com'
+  default from:'info.pranascore@gmail.com'
 
-  def welcome_email
-    @user = params[:user]
-    # @url  = 'http://example.com/login'
-    mail(to: @user.email, subject: 'Welcome here!!')
+  def welcome_mail
+    @user= params[:user]
+
+    mail(to:@user.email, subject:'welcome here')
   end
 end

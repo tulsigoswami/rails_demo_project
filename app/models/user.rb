@@ -18,8 +18,4 @@ class User < ApplicationRecord
   validates :type, presence: true
 
   validates :password,  confirmation: true,length: {within: 8..20}, on: :create
-
-  def get_url
-    url_for(:profile_image)
-  end
 end
