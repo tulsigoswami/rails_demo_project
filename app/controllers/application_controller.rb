@@ -3,7 +3,7 @@ class ApplicationController < ActionController::API
   before_action :find_recipe, only: :authorize_user
 
   def record_not_found
-    render plain: "Record Not Found", status: 404
+    render plain: 'Record Not Found', status: 404
   end
 
   def authorize_request
@@ -39,9 +39,7 @@ class ApplicationController < ActionController::API
       @decoded = JsonWebToken.decode(header)
       @current_user = User.find(@decoded[:user_id])
 
-      if @recipe
-        @current_user.followees.find(@recipe.user_id)
-      end
+      @current_user.followees.find(@recipe.user_id) if @recipe
     rescue ActiveRecord::RecordNotFound => e
       render json: { errors: e.message }, status: :unauthorized
     rescue JWT::DecodeError => e

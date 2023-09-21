@@ -5,28 +5,29 @@ class LikesController < ApplicationController
 
   def create
     if already_liked?
-       render plain:"You can't like more than once"
+      render plain: "You can't like more than once"
     else
-       @recipe.likes.create(user_id:@current_user.id,recipe_id:@recipe.id,count:1)
-        @recipe.likes.create.update(count:@recipe.likes.count+1)
-       redirect_to recipe_path(@recipe)
+      @recipe.likes.create(user_id: @current_user.id, recipe_id: @recipe.id, count: 1)
+      @recipe.likes.create.update(count: @recipe.likes.count + 1)
+      redirect_to recipe_path(@recipe)
     end
   end
 
   def dislike
     if !already_liked?
-      render plain:"You can't unlike"
+      render plain: "You can't unlike"
     else
-      @like = Like.where(user_id:@current_user.id, recipe_id:
+      @like = Like.where(user_id: @current_user.id, recipe_id:
       params[:id]).first
-      @like.destroy()
-      render plain:"disliked recipe"
-     end
+      @like.destroy
+      render plain: 'disliked recipe'
+    end
   end
 
   private
+
   def already_liked?
-      Like.where(user_id:@current_user.id, recipe_id:
-      params[:id]).exists?
+    Like.where(user_id: @current_user.id, recipe_id:
+    params[:id]).exists?
   end
 end

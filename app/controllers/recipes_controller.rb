@@ -1,9 +1,9 @@
 class RecipesController < ApplicationController
-   before_action :authorize_admin, only: [:index]
-   before_action :authorize_request
+  before_action :authorize_admin, only: [:index]
+  before_action :authorize_request
 
   def index
-    @recipes= Recipe.all
+    @recipes = Recipe.all
     render json: @recipes
   end
 
@@ -11,42 +11,41 @@ class RecipesController < ApplicationController
     @recipe = Recipe.new(recipe_params)
     # byebug
     if @recipe.save
-     @recipe.content.attach(params[:content])
-     RecipeMailer.with(recipe:@recipe).post_notify.deliver_now
-     render json: @recipe
+      @recipe.content.attach(params[:content])
+      RecipeMailer.with(recipe: @recipe).post_notify.deliver_now
+      render json: @recipe
     else
-     render json: @recipe.errors.full_messages
+      render json: @recipe.errors.full_messages
     end
   end
 
   def update
-    @recipe = Recipe.find_by(id:params[:id])
-    if @recipe
+    @recipe = Recipe.find_by(id: params[:id])
+    return unless @recipe
+
     @recipe.update(recipe_params)
     render json: @recipe
-    end
   end
 
   def show
-   @recipe = Recipe.find_by(id:params[:id])
-   if @recipe
+    @recipe = Recipe.find_by(id: params[:id])
+    return unless @recipe
+
     render json: @recipe
-   end
   end
 
   def destroy
-   @recipe = Recipe.find(params[:id])
-   if @recipe.destroy
-    render plain: "recipe deleted successfully"
-   end
+    @recipe = Recipe.find(params[:id])
+    return unless @recipe.destroy
+
+    render plain: 'recipe deleted successfully'
   end
 
   private
+
   def recipe_params
-    params.permit(:user_id,:title,:description,:ingredients,:content)
+    params.permit(:user_id, :title, :description, :ingredients, :content)
   end
 
-  def authenticate_user
-
-  end
+  def authenticate_user; end
 end

@@ -3,7 +3,7 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "articles#index"
-  resources :users,shallow: true, only:[:index,:create,:destroy] do
+  resources :users, shallow: true, only: %i[index create destroy] do
     resources :recipes
     collection do
       get :users_profile
@@ -11,14 +11,17 @@ Rails.application.routes.draw do
       get :all_followers
     end
   end
-   post 'user/login', to: 'authentication#login'
-   post '/users/:id/follow', to: "users#follow", as: "follow_user"
-   post '/users/:id/unfollow', to: "users#unfollow", as: "unfollow_user"
+  post 'user/login', to: 'authentication#login'
+  post '/users/:id/follow', to: 'users#follow', as: 'follow_user'
+  post '/users/:id/unfollow', to: 'users#unfollow', as: 'unfollow_user'
 
-   post 'likes/create/:id', to:'likes#create'
-   delete 'likes/dislike/:id', to:'likes#dislike'
+  post 'likes/create/:id', to: 'likes#create'
+  delete 'likes/dislike/:id', to: 'likes#dislike'
 
-   post 'comments/create/:id', to:'comments#create'
-   put  'comments/update/:id/:comment_id', to:'comments#update'
-   delete 'comments/delete/:id', to:'comments#delete'
+  post 'comments/create/:id', to: 'comments#create'
+  put  'comments/update/:id/:comment_id', to: 'comments#update'
+  delete 'comments/delete/:id', to: 'comments#delete'
+
+  post 'password/forgot', to: 'passwords#forgot'
+  post 'password/reset', to: 'passwords#reset'
 end
