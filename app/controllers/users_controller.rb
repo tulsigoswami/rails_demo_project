@@ -1,4 +1,4 @@
-class UsersController < ApplicationController
+class UsersController < ApiController
   before_action :authorize_admin, only: [:index]
   before_action :authorize_request, except: %i[index create]
 

@@ -1,4 +1,4 @@
-class CommentsController < ApplicationController
+class CommentsController < ApiController
   before_action :authorize_request
   before_action :find_recipe
   before_action :authorize_user

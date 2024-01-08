@@ -1,4 +1,4 @@
-class LikesController < ApplicationController
+class LikesController < ApiController
   before_action :authorize_request
   before_action :find_recipe
   before_action :authorize_user
@@ -7,8 +7,8 @@ class LikesController < ApplicationController
     if already_liked?
       render plain: "You can't like more than once"
     else
-      @recipe.likes.create(user_id: @current_user.id, recipe_id: @recipe.id, count: 1)
-      @recipe.likes.create.update(count: @recipe.likes.count + 1)
+      @recipe.likes.create(user_id: @current_user.id, recipe_id: @recipe.id)
+      # @recipe.likes.create.update(count: @recipe.likes.count + 1)
       redirect_to recipe_path(@recipe)
     end
   end

@@ -1,10 +1,10 @@
-class RecipesController < ApplicationController
-  before_action :authorize_admin, only: [:index]
-  before_action :authorize_request
+class RecipesController < ApiController
+  # before_action :authorize_admin, only: [:index]
+  # before_action :authorize_request
 
   def index
-    @recipes = Recipe.all
-    render json: @recipes
+    @recipes = Recipe.order(:title).page params[:page]
+     # render json: @recipes
   end
 
   def create
@@ -46,6 +46,4 @@ class RecipesController < ApplicationController
   def recipe_params
     params.permit(:user_id, :title, :description, :ingredients, :content)
   end
-
-  def authenticate_user; end
 end

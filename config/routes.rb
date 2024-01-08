@@ -1,8 +1,6 @@
 Rails.application.routes.draw do
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
+  root "recipes#index"
 
-  # Defines the root path route ("/")
-  # root "articles#index"
   resources :users, shallow: true, only: %i[index create destroy] do
     resources :recipes
     collection do
@@ -24,4 +22,7 @@ Rails.application.routes.draw do
 
   post 'password/forgot', to: 'passwords#forgot'
   post 'password/reset', to: 'passwords#reset'
+
+  get 'accounts/index', to: 'accounts#index'
+
 end

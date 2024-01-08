@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '2.7.0'
+ruby '3.0.0'
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem 'rails', '~> 7.0.7', '>= 7.0.7.2'
@@ -43,6 +43,9 @@ group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem 'debug', platforms: %i[mri mingw x64_mingw]
   gem 'rspec-rails'
+  gem 'factory_bot_rails', '~> 6.4.3'
+  gem 'shoulda-matchers'
+  gem 'simplecov', '0.17.0'
 end
 
 group :development do
@@ -50,4 +53,14 @@ group :development do
   # gem "spring"
   # gem 'byebug'
   gem 'rubocop'
+  # gem 'simplecov', '0.17.0'
+  # gem 'devise'
+  # gem 'devise-jwt'
+  # gem "net-http"
+  # gem 'kaminari'
+  gem 'sprockets', '<4'
+  gem 'sass-rails'
+  gem 'will_paginate', '~> 3.1.0'
 end
+
+

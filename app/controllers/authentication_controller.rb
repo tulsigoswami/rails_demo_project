@@ -1,4 +1,4 @@
-class AuthenticationController < ApplicationController
+class AuthenticationController < ApiController
   before_action :authorize_request, except: :login
   def login
     @user = User.find_by_email(params[:email])

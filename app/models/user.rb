@@ -18,7 +18,7 @@ class User < ApplicationRecord
                     presence: true, uniqueness: true
   validates :type, presence: true
 
-  validates :password, confirmation: true, length: { within: 8..20 }, on: :create
+  validates :password, confirmation: true #, length: { within: 8..20 }, on: :create
 
   def generate_password_token!
     self.reset_password_token = generate_token
@@ -31,13 +31,10 @@ class User < ApplicationRecord
   end
 
   def reset_password!(password)
-     byebug
     self.reset_password_token = nil
     pass = BCrypt::Password.create(password)
     self.password_digest = pass
     save!
-
-    # self.update(reset_password_token:nil,password_digest:password)
   end
 
   private

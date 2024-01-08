@@ -1,0 +1,12 @@
+<h1>Recipes</h1>
+  <ul>
+    <% @recipes.each do |article| %>
+      <li>
+        <!-- <a href = '/recipes/<#%=recipe.id%>'> -->
+          <%= recipe.title %>
+        <!-- </a> -->
+      </li>
+    <% end %>
+  </ul>
+
+  <%= link_to "New recipe", new_recipe_path %>
