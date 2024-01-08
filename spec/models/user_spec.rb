@@ -21,10 +21,8 @@ RSpec.describe User, type: :model do
   end
 
   describe "#generate reset password token" do 
-    it "generates reset password token" do
-      user.reset_password_token = SecureRandom.hex(10)
-      user.reset_password_sent_at = Time.now.utc
-      expect(user.save!).to be_in([true,false])
-    end
+    it{
+      should respond_to(:generate_password_token!)
+    }
   end
 end
