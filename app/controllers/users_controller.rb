@@ -8,17 +8,17 @@ class UsersController < ApiController
   end
 
   def create
-    # byebug
     @user = User.new(user_params)
-    if @user.blank?
-      render plain: 'Please input the correct information '
-    elsif @user.save
+    result = User.find_by_email(@user.email)
+    if @user.save
       @user.profile_image.attach(params[:profile_image])
 
       UserMailer.with(user: @user).welcome_mail.deliver_now
-      render json: @user, plain: 'Registration successful'
+      render json: @user, plain: 'Registration successful', status: :created
+    elsif result
+      render json: { message: 'Already registered! you need to login now' }, status: :conflict
     else
-      render json: { message: 'Already registered!you need to login now' }
+      render plain: 'Please input the correct information'
     end
   end
 

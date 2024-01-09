@@ -1,8 +1,8 @@
 FactoryBot.define do
-	factory :user do
-		first_name {"junkook"}
-		last_name {"jeon"}
-		email {"jk@gmail.com"}
-		password {"password@Abcd.#"}
-	end	
+  factory :user do
+    sequence(:first_name) { |n| "#{Faker::Name.initials(number: 5)}" }
+    sequence(:last_name) { |n| "#{Faker::Name.initials(number: 5)}" }
+    sequence(:email) { |n| "#{Faker::Name.initials(number: 5)}@gmail.com" }
+    sequence(:password) { |n| "!@#^&Aname#{n}" }
+  end
 end
