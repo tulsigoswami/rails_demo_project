@@ -45,8 +45,7 @@ RSpec.describe User, type: :model do
     it 'generates a password token' do
       user.generate_password_token!
       expect(user.reset_password_token).to_not be_nil
-      expect(user.reset_password_sent_at).to be_within
-      (1.minute).of(Time.now.utc)
+      expect(user.reset_password_sent_at).to be_within(1.minute).of(Time.now.utc)
     end
 
     it 'checks if the password token is valid' do
