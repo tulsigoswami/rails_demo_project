@@ -1,18 +1,17 @@
 class RecipesController < ApiController
   # before_action :authorize_admin, only: [:index]
-  # before_action :authorize_request
+  before_action :authorize_request
 
   def index
-    @recipes = Recipe.order(:title).page params[:page]
-     # render json: @recipes
+    @recipes = Recipe.order(:title)
+    render json: @recipes
   end
 
   def create
     @recipe = Recipe.new(recipe_params)
-    # byebug
     if @recipe.save
       @recipe.content.attach(params[:content])
-      RecipeMailer.with(recipe: @recipe).post_notify.deliver_now
+      # RecipeMailer.with(recipe: @recipe).post_notify.deliver_now
       render json: @recipe
     else
       render json: @recipe.errors.full_messages
@@ -38,12 +37,12 @@ class RecipesController < ApiController
     @recipe = Recipe.find(params[:id])
     return unless @recipe.destroy
 
-    render plain: 'recipe deleted successfully'
+    render plain: 'Recipe deleted successfully'
   end
 
   private
 
   def recipe_params
-    params.permit(:user_id, :title, :description, :ingredients, :content)
+    params.permit(:title, :user_id, :description, :ingredients, :content)
   end
 end
