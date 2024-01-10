@@ -12,10 +12,9 @@ class AuthenticationController < ApiController
       render json: { error: 'unauthorized' }, status: :unauthorized
     end
   end
+  # private
 
-  private
-
-  def login_params
-    params.permit(:email, :password)
-  end
+  # def login_params
+  #   params.permit(:email, :password)
+  # end
 end
