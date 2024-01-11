@@ -11,7 +11,6 @@ class RecipesController < ApiController
     @recipe = Recipe.new(recipe_params)
     if @recipe.save
       @recipe.content.attach(params[:content])
-      # RecipeMailer.with(recipe: @recipe).post_notify.deliver_now
       render json: @recipe
     else
       render json: @recipe.errors.full_messages
