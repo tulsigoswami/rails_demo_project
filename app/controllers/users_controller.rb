@@ -13,7 +13,7 @@ class UsersController < ApiController
     if @user.save
       @user.profile_image.attach(params[:profile_image])
 
-      UserMailer.with(user: @user).welcome_mail.deliver_now
+      # UserMailer.with(user: @user).welcome_mail.deliver_now
       render json: @user, plain: 'Registration successful', status: :created
     elsif result
       render json: { message: 'Already registered! you need to login now' }, status: :conflict

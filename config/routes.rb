@@ -1,6 +1,8 @@
+require 'sidekiq/web'
+
 Rails.application.routes.draw do
   root "recipes#index"
-
+  mount Sidekiq::Web => "/sidekiq"
   resources :users, shallow: true, only: %i[index create destroy] do
     resources :recipes
     collection do

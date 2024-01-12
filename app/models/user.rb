@@ -1,6 +1,8 @@
 include Rails.application.routes.url_helpers
 class User < ApplicationRecord
   self.inheritance_column = :type
+  after_create :send_welcome_email
+
   has_secure_password
   has_one_attached :profile_image
   has_many :recipes
@@ -41,5 +43,9 @@ class User < ApplicationRecord
 
   def generate_token
     SecureRandom.hex(10)
+  end
+
+  def send_welcome_email
+    SendEmailsJob.perform_now(self)
   end
 end
